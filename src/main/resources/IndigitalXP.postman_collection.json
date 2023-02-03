@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "69c39b67-b3e9-4eae-a26f-9309ede77f85",
+		"name": "IndigitalXP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3927380"
+	},
+	"item": [
+		{
+			"name": "CustomerService",
+			"item": [
+				{
+					"name": "Create customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Jair\",\r\n    \"lastname\": \"Lorenzo\",\r\n    \"mail\": \"jair.lorenzo@outlook.com\",\r\n    \"document\" : \"76771662\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/saveProduct",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"saveProduct"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/search",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"search"
+							],
+							"query": [
+								{
+									"key": "document",
+									"value": "76771662",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/getInfoByYear",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"getInfoByYear"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
