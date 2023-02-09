@@ -13,7 +13,10 @@ import org.springframework.stereotype.Repository;
 import pe.com.indigitalxp.customerserviceapi.dto.StatisticDto;
 import pe.com.indigitalxp.customerserviceapi.entity.CollCustomer;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Repository
 public class CustomerRepository {
