@@ -7,7 +7,8 @@ import lombok.Data;
 public class StatisticDto {
 
     @JsonProperty(value = "name")
-    private String _id;
+    private Integer _id;
+
     @JsonProperty(value = "value")
     private Integer count;
 }

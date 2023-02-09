@@ -24,22 +24,22 @@ public class CustomerService {
     @Autowired
     CustomerRepository customerRepository;
 
-    public List<StatisticDto> getListByMM(){
+    public List<StatisticDto> getListByMM() {
         return customerRepository.getBornCustomByMM();
     }
 
-    public List<StatisticDto> getListByYYYY(){
+    public List<StatisticDto> getListByYYYY() {
         return customerRepository.getBornCustomByYYYY();
     }
 
     @Transactional
-    public void saveCustomer(CustomerDto customerDto){
+    public void saveCustomer(CustomerDto customerDto) {
 
-        /* Verify if customer exists */
         CustomerDto customDb = customerMapper.customDtoToEntity(customerRepository.getCustomerByDoc(customerDto.getDocumentCustomer()));
         if(!Objects.isNull(customDb)){
             throw new BussinessExcepcion("The document is already registered, try with another document");
         }
+
         customerDto.setCreationCustomer(new Date());
         customerRepository.saveProduct(customerMapper.customDtoToEntity(customerDto));
 
@@ -48,4 +48,5 @@ public class CustomerService {
     public List<CustomerDto> listCustomers(String document, String mail){
         return customerMapper.map(customerRepository.resultConsumers(document, mail));
     }
+
 }
