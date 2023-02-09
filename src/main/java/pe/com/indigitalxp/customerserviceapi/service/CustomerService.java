@@ -35,14 +35,16 @@ public class CustomerService {
     @Transactional
     public void saveCustomer(CustomerDto customerDto) {
 
+        log.info("Inicio metodo saveCustomer()");
         CustomerDto customDb = customerMapper.customDtoToEntity(customerRepository.getCustomerByDoc(customerDto.getDocumentCustomer()));
         if(!Objects.isNull(customDb)){
+            log.info("Cliente registrado en bd");
             throw new BussinessExcepcion("The document is already registered, try with another document");
         }
 
         customerDto.setCreationCustomer(new Date());
         customerRepository.saveProduct(customerMapper.customDtoToEntity(customerDto));
-
+        log.info("Fin metodo saveCustomer()");
     }
 
     public List<CustomerDto> listCustomers(String document, String mail){

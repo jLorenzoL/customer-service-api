@@ -30,7 +30,7 @@ public class CustomerDto {
     @JsonProperty(value = "document")
     @NotEmpty(message = "Field 'document' is required.")
     @Size(min = 8, message = "Field 'document' length is 8 characters")
-    @Size(min = 8, message = "Field 'document' length is 8 characters")
+    @Size(max = 9, message = "Field 'document' length is 8 characters")
     @Pattern(regexp = "^[0-9]*$" , message = "Field 'document' only accepts numbers")
     private String documentCustomer;
 

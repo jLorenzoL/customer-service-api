@@ -1,5 +1,6 @@
 package pe.com.indigitalxp.customerserviceapi.excepcion;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
@@ -37,6 +38,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return values;
     }
 
+
+    @Data
+    public class ErrorValidation {
+        private String error;
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex, HttpHeaders headers,
@@ -49,6 +56,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
+
+        List<ErrorValidation> lstErrors = errors.stream().map(x->{
+            ErrorValidation error = new ErrorValidation();
+            error.setError(x);
+            return error;
+        }).collect(Collectors.toList());
 
         values.put("timestamp", new Date());
         values.put("errors", errors);

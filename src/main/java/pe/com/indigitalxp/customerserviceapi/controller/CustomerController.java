@@ -1,5 +1,6 @@
 package pe.com.indigitalxp.customerserviceapi.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pe.com.indigitalxp.customerserviceapi.dto.CustomerDto;
@@ -10,15 +11,17 @@ import pe.com.indigitalxp.customerserviceapi.util.JsonManagerResponse;
 import javax.validation.Valid;
 import java.util.Map;
 
+@Slf4j
 @RestController
 public class CustomerController {
 
     @Autowired
     CustomerService customerService;
 
-    @PostMapping("/saveProduct")
-    public Map<String, Object> saveProduct(@Valid @RequestBody CustomerDto customerDto) {
+    @PostMapping("/saveCustomer")
+    public Map<String, Object> saveCustomer(@Valid @RequestBody CustomerDto customerDto) {
 
+        log.info("Inicio controller saveCustomer()");
         Map<String, Object> response;
 
         try {
@@ -27,7 +30,7 @@ public class CustomerController {
         }catch (Exception e) {
             response = new JsonManagerResponse(e.getMessage(), Boolean.FALSE).getResponse();
         }
-
+        log.info("Fin controller saveCustomer()");
         return response;
     }
 
