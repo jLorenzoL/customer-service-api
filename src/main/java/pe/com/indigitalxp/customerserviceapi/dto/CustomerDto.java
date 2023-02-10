@@ -44,4 +44,6 @@ public class CustomerDto {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date bornCustomer;
 
+    private String state;
+
 }

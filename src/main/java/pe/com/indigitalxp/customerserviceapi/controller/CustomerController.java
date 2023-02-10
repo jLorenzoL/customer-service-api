@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pe.com.indigitalxp.customerserviceapi.dto.CustomerDto;
+import pe.com.indigitalxp.customerserviceapi.dto.CustomerRequest;
 import pe.com.indigitalxp.customerserviceapi.excepcion.BussinessExcepcion;
 import pe.com.indigitalxp.customerserviceapi.service.CustomerService;
 import pe.com.indigitalxp.customerserviceapi.util.JsonManagerResponse;
@@ -32,6 +33,17 @@ public class CustomerController {
         }
         log.info("Fin controller saveCustomer()");
         return response;
+    }
+
+    @PostMapping("/getCustomerList")
+    public Map<String, Object> getCustomerList(@Valid @RequestBody CustomerRequest request) {
+        log.info("Busqueda de clientes para el request: {}", request.toString());
+        try {
+            Map<String, Object> map = customerService.listCustomersPage(request);
+            return JsonManagerResponse.correctProcess().buildResponse(map).getResponse();
+        } catch (BussinessExcepcion ex) {
+            return JsonManagerResponse.procesoError(ex).getResponse();
+        }
     }
 
 

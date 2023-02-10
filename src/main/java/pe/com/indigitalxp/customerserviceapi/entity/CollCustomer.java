@@ -27,4 +27,6 @@ public class CollCustomer {
 
     private Date dtBornDate;
 
+    private String state;
+
 }

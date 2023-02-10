@@ -40,7 +40,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     @Data
-    public class ErrorValidation {
+    public static class ErrorValidation {
         private String error;
     }
 

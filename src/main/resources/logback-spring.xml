@@ -9,14 +9,6 @@
             </encoder>
         </appender>
 
-<!--        <logger name="org.apache.http.impl.conn.DefaultHttpClientConnectionOperator">-->
-<!--            <level value="DEBUG"/>-->
-<!--        </logger>-->
-
-<!--        <logger name="pe.net.tci.ose.portal.config.RequestResponseLoggingInterceptor">-->
-<!--            <level value="DEBUG"/>-->
-<!--        </logger>-->
-
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
         </root>

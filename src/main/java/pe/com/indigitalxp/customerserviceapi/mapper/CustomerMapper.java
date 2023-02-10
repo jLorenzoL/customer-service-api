@@ -15,7 +15,8 @@ public interface CustomerMapper {
             @Mapping(target="strMail", source="mailCustomer"),
             @Mapping(target="strDocument", source="documentCustomer"),
             @Mapping(target="dtCreationDate", source="creationCustomer"),
-            @Mapping(target="dtBornDate", source="bornCustomer")
+            @Mapping(target="dtBornDate", source="bornCustomer"),
+            @Mapping(target="state", source="state")
     })
     CollCustomer customDtoToEntity(CustomerDto customerDto);
 

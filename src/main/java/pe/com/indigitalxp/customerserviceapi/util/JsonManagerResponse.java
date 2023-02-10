@@ -25,4 +25,13 @@ public class JsonManagerResponse {
         return this;
     }
 
+    public static JsonManagerResponse procesoError(Exception e) {
+        return new JsonManagerResponse(e.getMessage(), Boolean.FALSE);
+    }
+
+    public JsonManagerResponse buildResponse(Map<String, Object> response) {
+        this.response.putAll(response);
+        return this;
+    }
+
 }

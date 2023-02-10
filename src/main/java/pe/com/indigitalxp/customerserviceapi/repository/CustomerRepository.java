@@ -1,11 +1,15 @@
 package pe.com.indigitalxp.customerserviceapi.repository;
 
 import com.google.gson.Gson;
+import com.mongodb.Block;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -17,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Repository
 public class CustomerRepository {
@@ -34,7 +39,8 @@ public class CustomerRepository {
                                 .append("count", new Document("$sum", 1L)))));
 
         ArrayList<Document> dataResult = new ArrayList<>(1);
-        result.forEach(dataResult::add);
+
+        result.forEach((Consumer<? super Document>) dataResult::add);
 
         return mapData(dataResult);
     }
@@ -49,7 +55,8 @@ public class CustomerRepository {
                                 .append("count", new Document("$sum", 1L)))));
 
         ArrayList<Document> dataResult = new ArrayList<>(1);
-        result.forEach(dataResult::add);
+
+        result.forEach((Consumer<? super Document>) dataResult::add);
 
         return mapData(dataResult);
     }
@@ -57,11 +64,12 @@ public class CustomerRepository {
     private List<StatisticDto> mapData(List<Document> dataResult){
 
         List<StatisticDto> statisticDtoList = new ArrayList<>();
-        dataResult.forEach(x->{
-            String jsonResul = x.toJson();
-            StatisticDto data = new Gson().fromJson(jsonResul, StatisticDto.class);
-            statisticDtoList.add(data);
 
+        dataResult.forEach(key -> {
+            StatisticDto dto = new StatisticDto();
+            dto.set_id(Integer.valueOf(key.get("_id").toString()));
+            dto.setCount(Integer.valueOf(key.get("count").toString()));
+            statisticDtoList.add(dto);
         });
         statisticDtoList.sort(Comparator.comparing(StatisticDto::get_id));
 
@@ -105,6 +113,22 @@ public class CustomerRepository {
         }
 
         return criteriaList;
+    }
+
+    public Page<CollCustomer> getCustomerPageable(Query query, Pageable pageable) {
+        List<CollCustomer> list = getCustomer(query);
+
+        if (list.isEmpty()) {
+            return null;
+        }
+
+        long count = mongoTemplate.count(query, CollCustomer.class);
+        Page<CollCustomer> resultPage = new PageImpl<>(list, pageable, count);
+        return resultPage;
+    }
+
+    public List<CollCustomer> getCustomer(Query query) {
+        return mongoTemplate.find(query, CollCustomer.class);
     }
 
 }
